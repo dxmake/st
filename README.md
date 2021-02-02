@@ -8,3 +8,5 @@ this is my simple ST config setting with official patches and custom config.h
 
 ## patches:  
 - scrollback
+- font2
+- anysize

@@ -10,8 +10,12 @@ url='https://github.com/glandogear/st'
 source=(
     https://dl.suckless.org/$pkgname/$pkgname-$pkgver.tar.gz
     https://st.suckless.org/patches/scrollback/st-scrollback-0.8.4.diff
+    https://st.suckless.org/patches/font2/st-font2-20190416-ba72400.diff
+    https://st.suckless.org/patches/anysize/st-anysize-20201003-407a3d0.diff
 )
 sha256sums=(
+    'SKIP'
+    'SKIP'
     'SKIP'
     'SKIP'
 )
@@ -20,6 +24,8 @@ _makeopts="--directory=$_sourcedir"
 
 prepare() {
     patch --directory="$_sourcedir" < st-scrollback-0.8.4.diff
+    patch --directory="$_sourcedir" < st-font2-20190416-ba72400.diff
+    patch --directory="$_sourcedir" < st-anysize-20201003-407a3d0.diff
 
   # This package provides a mechanism to provide a custom config.h. Multiple
   # configuration states are determined by the presence of two files in
