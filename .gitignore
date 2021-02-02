@@ -1,0 +1,6 @@
+config.def.h
+pkg/
+src/
+*.diff
+*.pkg.tar.zst
+*.tar.gz
