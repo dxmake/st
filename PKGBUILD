@@ -7,24 +7,19 @@ arch=('x86_64')
 license=('MIT')
 depends=(libxft)
 url='https://github.com/glandogear/st'
-_patches=('scrollback')
 source=(
-  https://dl.suckless.org/$pkgname/$pkgname-$pkgver.tar.gz
+    https://dl.suckless.org/$pkgname/$pkgname-$pkgver.tar.gz
+    https://st.suckless.org/patches/scrollback/st-scrollback-0.8.4.diff
 )
-sha256sums=('SKIP')
-for patch in ${_patches[@]}
-do
-  source+=(https://st.suckless.org/patches/$patch/$pkgname-$patch-$pkgver.diff)
-  sha256sums+=('SKIP')
-done
+sha256sums=(
+    'SKIP'
+    'SKIP'
+)
 _sourcedir=$pkgname-$pkgver
 _makeopts="--directory=$_sourcedir"
 
 prepare() {
-  for patch in ${_patches[@]}
-  do
-    patch --directory="$_sourcedir" < $pkgname-$patch-$pkgver.diff
-  done
+    patch --directory="$_sourcedir" < st-scrollback-0.8.4.diff
 
   # This package provides a mechanism to provide a custom config.h. Multiple
   # configuration states are determined by the presence of two files in
@@ -54,8 +49,8 @@ prepare() {
     msg+='modify it to change the configuration. Or just leave it alone to '
     msg+='continue to use default values.'
     warning "$msg"
+    cp "$_sourcedir/config.def.h" "$BUILDDIR"
   fi
-  cp "$_sourcedir/config.def.h" "$BUILDDIR"
 
   sed -i '/tic /d' "$_sourcedir/Makefile"
 }
